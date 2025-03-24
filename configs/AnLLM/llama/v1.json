@@ -1,0 +1,25 @@
+{
+    "template": {
+        "model": "llama",
+        "prefix": "<|start_header_id|>system<|end_header_id|>\n\n",
+        "middle": "<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n",
+        "suffix": "<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+        "complete": "<|start_header_id|>system<|end_header_id|>\n\n{system}<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{question}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n"
+    },
+    "prompt": {
+        "save_template": true,
+        "level": "sentence",
+        "step": 1,
+        "n_token": 1,
+        "token_name": "<|o_{t_id}|>",
+        "token_desp": "compress output {t_id}"
+    },
+    "output": {
+        "level": "sentence",
+        "step":1 ,
+        "n_token": 1,
+        "token_name": "<|o_{t_id}|>",
+        "token_desp": "compress output {t_id}",
+        "meta_compress_step": 1
+    }
+}
