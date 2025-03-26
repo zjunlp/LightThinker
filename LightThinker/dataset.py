@@ -73,7 +73,6 @@ class MyDataset(torch.utils.data.Dataset):
         # exit()
         return indicator_list, input_ids_list
 
-
     def insert_comp_for_prompt(
         self, 
         question:str, 
@@ -478,7 +477,6 @@ class MyDataCollator:
         sample_config:dict(
             mode:str in [aug, normal]
             hybrid:bool=False,      
-            
         )
         """
         self.dataset:MyDataset = dataset

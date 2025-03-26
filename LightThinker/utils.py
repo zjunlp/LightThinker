@@ -81,10 +81,6 @@ def create_attention_for_aug_data(
     prefill_compress:bool=True,     
     max_length:int=None,
 ):
-    # 因为这里使用了prefill_compress
-    # 暂时不支持多轮的那种形式
-    # 因为懒，所以我没有计算连续的compressed-prompt，所以默认是从0开始的，从0到compressed_prompt设为下三角
-
     # 0-False mask
     # 1-True don't mask
     length = len(input_ids)
@@ -112,7 +108,6 @@ def create_attention_for_aug_data(
 
         # 1.1 prefill remove compress
         if not prefill_compress and index_state == 'compressed-prompt':
-            # 直接设为一个下三角得了
             mask[0:end+l_inst+n_comp, 0:end+l_inst+n_comp] = np.tri(len(mask[0:end+l_inst+n_comp, 0:end+l_inst+n_comp]), dtype=int)
             # print("prefill:", end+l_inst+n_comp)
             
@@ -136,8 +131,6 @@ def create_attention_for_aug_data(
         
         # 3. diagonal
         if diagonal and end+l_inst+n_comp < len(mask):
-            # assert diagonal == False, "因为前面prefill的时候，是会把整个都设为下三角，所以不行，需要改prefill的逻辑"
-            # 但是我们目前prompt不进行压缩，所以应该没啥大的问题感觉
             # mask[end+l_inst:end+l_inst+n_comp, end+l_inst:end+l_inst+n_comp] = \
             #     np.eye(n_comp, dtype=int)
             mask[end+l_inst:end+l_inst+n_comp, end+l_inst:end+l_inst+n_comp] = \
@@ -174,8 +167,6 @@ def create_attention_for_recover_data(
     prefill_compress:bool=True,
     return_offset:bool=False,
 ) -> torch.Tensor:
-    # 先使用之前的内容，也就是create_attention_for_aug_data
-    # 然后我们再去修改后面的部分
 
     # 0-False mask
     # 1-True don't mask
@@ -203,7 +194,6 @@ def create_attention_for_recover_data(
 
         # 1.1 prefill remove compress
         if not prefill_compress and index_state == 'compressed-prompt':
-            # 直接设为一个下三角得了
             mask[0:end+l_inst+n_comp, 0:end+l_inst+n_comp] = np.tri(len(mask[0:end+l_inst+n_comp, 0:end+l_inst+n_comp]), dtype=int)
         if not prefill_compress and index_state == 'compressed-output' and pre_state == 'compressed-prompt':
             mask[0:start, 0:start] = np.tri(len(mask[0:start, 0:start]), dtype=int)
@@ -217,7 +207,7 @@ def create_attention_for_recover_data(
         
         # 3. diagonal
         if diagonal:
-            assert diagonal == False, "因为前面prefill的时候，是会把整个都设为下三角，所以不行，需要改prefill的逻辑"
+            assert diagonal == False, "we do not "
             mask[end+l_inst:end+l_inst+n_comp, end+l_inst:end+l_inst+n_comp] = \
                 np.eye(len(mask[end+l_inst:end+l_inst+n_comp, end+l_inst:end+l_inst+n_comp]), dtype=int)
         
@@ -226,15 +216,6 @@ def create_attention_for_recover_data(
             mask[end+l_inst:end+l_inst+n_comp, 0:start] = 0
         
     # 2. recover part
-    # 我们这边还是期望说recover部分是连续的
-    # 然后我们这边需要关心的是prompt部分的压缩内容
-    # 是不能被mask的
-    # 目前这里有两种写法
-    # 第一种是说我们恢复原来的，就是上三角，然后去设0
-    # 第二种是说我们去设1和0
-    # 感觉还是使用第二种方式会更加规范一点
-    # 但是save的部分的状态是丢失的
-    # 这里好像不太行诶，因为answer部分没有被mask现在
 
     start, end, l_inst, n_comp, n_continue = None, None, None, None, None
     pre_state = None
@@ -247,24 +228,19 @@ def create_attention_for_recover_data(
                 _end, _l_inst, _n_comp, _n_continue = item
                 if end == _end and l_inst == _l_inst and \
                     n_comp == _n_comp and n_continue == _n_continue:
-                    # 刚好命中的话，那么不用动
                     need_mask = False
                     break
             if need_mask:
-                # mask掉文本
                 mask[
                     len(input_ids):, start:end
                 ] = 0
-                # mask掉注意力
                 mask[
                     len(input_ids):, end:end+l_inst+n_comp+n_continue
                 ] = 0
 
     if start != None:
         if len(input_ids) > end+l_inst+n_comp+n_continue:
-            # 把最后结尾的answer还有eos token都mask掉
             mask[len(input_ids):, end+l_inst+n_comp+n_continue:len(input_ids)] = 0
-    # 统计一下有多少个token是参与的，用于position_ids的offset
     offset = None
     for i in range(len(input_ids)-1, -1, -1):
         if mask[-1, i] == 1:
