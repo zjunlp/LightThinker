@@ -31,31 +31,20 @@ prefill_compress="false"
 update_attention_method="local"
 temp_tag=""
 
-split_size=4
+# check "anllm_infer_log" 
+if [ ! -d "anllm_infer_log" ]; then
+    echo "Creating anllm_infer_log directory..."
+    mkdir anllm_infer_log
+fi
+subfolders=("true_true" "true_false" "false_false" "false_true")
+for subfolder in "${subfolders[@]}"; do
+    if [ ! -d "anllm_infer_log/$subfolder" ]; then
+        echo "Creating $subfolder directory..."
+        mkdir "anllm_infer_log/$subfolder"
+    fi
+done
 
-index=1
-CUDA_VISIBLE_DEVICES=0 python "${root_dir}/inference.py" \
-    --model_tag $model_tag \
-    --ckpt $ckpt \
-    --tokenizer_path $tokenizer_path \
-    --compress_config $compress_config \
-    --output_tag $output_tag \
-    --model_type $model_type \
-    --bos_token $bos_token \
-    --eos_token $eos_token \
-    --max_new_tokens $max_new_tokens \
-    --rolling_rope $rolling_rope \
-    --diagonal $diagonal \
-    --bi_directional $bi_directional \
-    --see_current $see_current \
-    --exclude_continue $exclude_continue \
-    --output_compress_instruction $output_compress_instruction \
-    --prefill_compress $prefill_compress \
-    --compress_prompt $compress_prompt \
-    --update_attention_method $update_attention_method \
-    --split_size $split_size \
-    --index $index \
-    --model_short_tag $model_short_tag
+split_size=4
 
 index=1
 CUDA_VISIBLE_DEVICES=0 nohup python "${root_dir}/inference.py" \

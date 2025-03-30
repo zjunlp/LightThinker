@@ -31,6 +31,19 @@ output_compress_instruction="None"
 prefill_compress="false"
 update_attention_method="local"
 
+# check "ours_infer_log" 
+if [ ! -d "ours_infer_log" ]; then
+    echo "Creating ours_infer_log directory..."
+    mkdir ours_infer_log
+fi
+subfolders=("true_true" "true_false" "false_false" "false_true")
+for subfolder in "${subfolders[@]}"; do
+    if [ ! -d "ours_infer_log/$subfolder" ]; then
+        echo "Creating $subfolder directory..."
+        mkdir "ours_infer_log/$subfolder"
+    fi
+done
+
 split_size=4
 
 index=1

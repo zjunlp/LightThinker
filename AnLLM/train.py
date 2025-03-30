@@ -21,7 +21,7 @@ def get_parser():
     parser.add_argument('--train_path', type=str, help='training dataset path')
     parser.add_argument('--output_dir', type=str)
     parser.add_argument('--max_length', type=int, default=768)
-    parser.add_arguemnt('--model_type', type=str, choices=['qwen', 'llama'])
+    parser.add_argument('--model_type', type=str, choices=['qwen', 'llama'])
 
     parser.add_argument('--compress_config', type=str)
     parser.add_argument('--bos_token', type=str)

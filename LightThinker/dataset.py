@@ -907,9 +907,9 @@ class MyDataCollator:
         
 if __name__ == '__main__':
 
-    config_path = f"{}.json"
-    tokenizer_path = f"{}"
-    dataset_path = f"{}.jsonl"
+    config_path = "YOUR_CONFIG.json"
+    tokenizer_path = "YOUR_TOKENIZER_PATH"
+    dataset_path = "YOUR_DATASET.jsonl"
     # bos_token="<|begin_of_text|>"
     # eos_token="<|eot_id|>"
     bos_token="<|im_start|>"
