@@ -40,7 +40,6 @@ def upload_qwen():
         #     repo_type="model",
         # )
 
-
 def upload_llama():
     api = HfApi()
     path_list, name_list = get_file_paths("Llama")
