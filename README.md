@@ -102,7 +102,7 @@ python evaluation/eval_file.py \
   --interaction 
 ```
 
-Please note that if you set `split_size>1` in the second step, the number of file i here should match the value of `split_size`. It should be noted that manual evaluation was conducted during the assessment. Use the `--interaction` flag to enable manual evaluation. 
+Please note that if you set `split_size>1` in the second step, the number of file i here should match the value of `split_size`. It should be noted that manual evaluation was conducted during the assessment. Use the `--interaction` flag to enable manual evaluation. The `cache_size` parameter is used for `H2O` and `SepLLM`, but not for `LightThinker` or `AnLLM`.
 
 <details> 
 <summary><b>Evaluation Script Example</b></summary>
