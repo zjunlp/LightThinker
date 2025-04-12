@@ -102,10 +102,10 @@
 # Inference Scripts
 
 - model_tag
-  - **Description:** model_tag is the filename under the `output/` folder, corresponding to line 1459 of the code in `LightThinker/inference.py`. We will load the model from `output/{model_tag}/checkpoint-{args.ckpt}`.
+  - **Description:** model_tag is the filename under the `output/` folder, corresponding to line 1461 of the code in `LightThinker/inference.py`. We will load the model from `output/{model_tag}/checkpoint-{args.ckpt}`.
   - **Type:** str
 - model_short_tag
-  - **Description:** model_short_tag is used to save files, corresponding to line 1684 of the code in `LightThinker/inference.py.`
+  - **Description:** model_short_tag is used to save files, corresponding to line 1691 of the code in `LightThinker/inference.py.`
   - **Type:** str
 - model_type
   - **Description:** Refers to the type of the current training model. Currently, only `qwen` and `llama` are supported.
@@ -127,6 +127,9 @@
   - **Type:** int
 - output_tag
   - **Description:** Used to identify the folder when saving the file.
+  - **Type:** str
+- model_path
+  - **Description:** If you set the `model_path`, the arguments `ckpt` and `model_tag` will be ignored. See line 1460 of the code in LightThinker/inference.py for more details.
   - **Type:** str
 - max_new_tokens
   - **Description:** Maximum number of tokens to generate.

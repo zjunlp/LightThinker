@@ -1425,7 +1425,8 @@ def get_parser():
     parser.add_argument('--max_new_tokens', type=int)
     parser.add_argument('--output_tag', type=str)
     parser.add_argument('--model_type', type=str, choices=['qwen', 'llama'])
-    
+    parser.add_argument('--model_path', type=str, default=None)
+
     parser.add_argument('--bos_token', type=str)
     parser.add_argument('--eos_token', type=str)
 
@@ -1456,7 +1457,10 @@ def get_model_and_tokenizer(
     Union[Qwen2ForCausalLM, LlamaForCausalLM],
     Tokenizer
 ]:
-    model_path = f"output/{args.model_tag}/checkpoint-{args.ckpt}"
+    if args.model_path == None or args.model_path == "":
+        model_path = f"output/{args.model_tag}/checkpoint-{args.ckpt}"
+    else:
+        model_path = args.model_path
     special_token_list:List[str] = list()
     tokenizer: Tokenizer = Tokenizer(
         tokenizer_path=args.tokenizer_path if args.tokenizer_path != None else model_path,

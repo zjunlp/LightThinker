@@ -1,11 +1,11 @@
 # we will load model from `output/{model_tag}/checkpoint-{args.ckpt}`
 
 # `model_tag` is the filename under the output/ folder, 
-# corresponding to line 1459 of the code in LightThinker/inference.py.
+# corresponding to line 1461 of the code in LightThinker/inference.py.
 model_tag=""
 
 # `model_short_tag` is used to save file, 
-# corresponding to line 1684 of the code in LightThinker/inference.py.
+# corresponding to line 1691 of the code in LightThinker/inference.py.
 model_short_tag=""
 
 model_type="qwen"
@@ -16,6 +16,10 @@ compress_config="./configs/LightThinker/qwen/v1.json"
 
 ckpt=1045
 output_tag="YOUR-TAG"
+# `model_path` is an optional argument
+# if you set the `model_path`, the arguments ckpt and model_tag will be ignored.
+# see line 1460 of the code in LightThinker/inference.py for more details.
+model_path=""
 max_new_tokens=10240
 
 root_dir="./LightThinker"
@@ -68,6 +72,7 @@ CUDA_VISIBLE_DEVICES=0 nohup python "${root_dir}/inference.py" \
     --compress_prompt $compress_prompt \
     --update_attention_method $update_attention_method \
     --split_size $split_size \
+    --model_path $model_path \
     --index $index > "ours_infer_log/${rolling_rope}_${compress_prompt}/${index}${prefix}_${model_short_tag}_${ckpt}.txt" 2>&1 &
 
 
@@ -94,6 +99,7 @@ CUDA_VISIBLE_DEVICES=1 nohup python "${root_dir}/inference.py" \
     --compress_prompt $compress_prompt \
     --update_attention_method $update_attention_method \
     --split_size $split_size \
+    --model_path $model_path \
     --index $index > "ours_infer_log/${rolling_rope}_${compress_prompt}/${index}${prefix}_${model_short_tag}_${ckpt}.txt" 2>&1 &
 
 
@@ -119,6 +125,7 @@ CUDA_VISIBLE_DEVICES=2 nohup python "${root_dir}/inference.py" \
     --compress_prompt $compress_prompt \
     --update_attention_method $update_attention_method \
     --split_size $split_size \
+    --model_path $model_path \
     --index $index > "ours_infer_log/${rolling_rope}_${compress_prompt}/${index}${prefix}_${model_short_tag}_${ckpt}.txt" 2>&1 &
 
 
@@ -144,5 +151,6 @@ CUDA_VISIBLE_DEVICES=3 nohup python "${root_dir}/inference.py" \
     --compress_prompt $compress_prompt \
     --update_attention_method $update_attention_method \
     --split_size $split_size \
+    --model_path $model_path \
     --index $index > "ours_infer_log/${rolling_rope}_${compress_prompt}/${index}${prefix}_${model_short_tag}_${ckpt}.txt" 2>&1 &
 

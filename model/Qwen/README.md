@@ -1,4 +1,3 @@
-![case](assets/gif.gif)
 
 
 <div align="center">
@@ -10,9 +9,9 @@
 ![](https://img.shields.io/github/last-commit/zjunlp/LightThinker?color=green) 
 
 <p align="center">
+  <a href="https://github.com/zjunlp/lightthinker">Github</a> •
   <a href="https://arxiv.org/abs/2502.15589">📄arXiv</a> •
-  <a href="https://x.com/zxlzr/status/1894729164609208338">𝕏 Blog</a> •
-  <a href="https://huggingface.co/collections/zjunlp/lightthinker-67f9faaaa518f2e00b17386b">🤗 Huggingface</a>
+  <a href="https://x.com/zxlzr/status/1894729164609208338">𝕏 Blog</a> 
 </p>
 
 </div>
@@ -44,7 +43,7 @@ cd data && unzip data.zip && cd ..
 
 ## 🏃Quick Start
 
-> First, we train the model to learn how to compress (step 1). Then, we perform inference on the test set to obtain output results (step 2). Finally, we evaluate the output results (step 3).
+> First, we train the model to learn when to compress and how to compress (step 1). Then, we perform inference on the test set to obtain output results (step 2). Finally, we evaluate the output results (step 3).
 
 ### Step 1. Training
 
@@ -57,6 +56,12 @@ bash train.sh
 Currently, the script's parameters are set to run on a machine with 4 A800 GPUs. If you encounter OOM (Out Of Memory) issues, please reduce the `micro_batch_size` and `max_length`. For other parameters in the script, please refer to the [documentation](./ARGS.md).
 
 ### Step 2. Inference
+
+<details> 
+<summary><b>Inference with a downloaded model</b></summary>
+
+If you are downloading a trained model from Huggingface, please set the `model_path` parameter in `inference.sh` to the absolute path of the model. The values of other parameters `ckpt` and `model_tag` will be ignored.
+</details>
 
 To execute the inference, run the following command:
 
