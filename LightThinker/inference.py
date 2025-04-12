@@ -1461,6 +1461,7 @@ def get_model_and_tokenizer(
         model_path = f"output/{args.model_tag}/checkpoint-{args.ckpt}"
     else:
         model_path = args.model_path
+    print(f"load model from `{model_path}` ...")
     special_token_list:List[str] = list()
     tokenizer: Tokenizer = Tokenizer(
         tokenizer_path=args.tokenizer_path if args.tokenizer_path != None else model_path,

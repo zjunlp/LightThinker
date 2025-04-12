@@ -17,7 +17,7 @@ compress_config="./configs/LightThinker/qwen/v1.json"
 ckpt=1045
 output_tag="YOUR-TAG"
 # `model_path` is an optional argument
-# if you set the `model_path`, the arguments ckpt and model_tag will be ignored.
+# if you set the `model_path`, the arguments `ckpt` and `model_tag` will be ignored.
 # see line 1460 of the code in LightThinker/inference.py for more details.
 model_path=""
 max_new_tokens=10240

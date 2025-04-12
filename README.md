@@ -58,6 +58,12 @@ Currently, the script's parameters are set to run on a machine with 4 A800 GPUs.
 
 ### Step 2. Inference
 
+<details> 
+<summary><b>Inference with a downloaded model</b></summary>
+
+If you are downloading a trained model from Huggingface, please set the `model_path` parameter in `inference.sh` to the absolute path of the model. The values of other parameters `ckpt` and `model_tag` will be ignored.
+</details>
+
 To execute the inference, run the following command:
 
 ```bash
