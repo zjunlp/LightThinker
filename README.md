@@ -1,4 +1,7 @@
-![case](assets/gif.gif)
+<div align="center" style="width: 100%;">
+  <img src="assets/gif.gif" alt="Case GIF" style="width: 100%; max-width: 100%; height: auto;">
+</div>
+
 
 
 <div align="center">
@@ -77,9 +80,9 @@ Here, you need to modify the script file's `model_tag`, `model_short_tag`, `ckpt
 
 > [!NOTE]
 > If this is your **first time** conducting an evaluation, please execute the following code first:
-```bash
-python evaluation/init.py
-```
+> ```bash
+> python evaluation/init.py
+> ```
 
 To execute the evaluation, run the following command:
 
