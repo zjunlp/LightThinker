@@ -1,7 +1,7 @@
 
 from transformers import AutoTokenizer
 from typing import *
-from utils import _print, IGNORE_LABEL_ID
+from LightThinker.utils import _print, IGNORE_LABEL_ID
 from copy import deepcopy
 
 

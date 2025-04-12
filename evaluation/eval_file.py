@@ -314,7 +314,7 @@ def get_parser():
     parser = argparse.ArgumentParser(description="")
 
     parser.add_argument(
-        '--method_type', 
+        '--method', 
         type=str, 
         choices=['anchor-token', 'normal', 'kvcache', 'anchor-thought']
     )
@@ -363,6 +363,13 @@ def get_tokenizer_and_config(args) -> Tuple[Tokenizer, Config]:
 
     return tokenizer, comp_config
 
+def print_interaction_mode_instruction(args):
+    if args.interaction == True:
+        print("#"*20, "Use the human evaluation mode.", "#"*20)
+        print("""When string matching fails, the output will be displayed in the format "Model Answer" <=> "Standard Answer". At this point, you can input "y" or "n" to evaluate this case. If you believe the model's answer extraction is incorrect, you can input "e" to print the model's complete output, and then input "y" or "n" to evaluate this case.""")
+    else:
+        print("#"*20, "Use the automatic evaluation mode.", "#"*20)
+
 
 def main():
     args = get_parser()
@@ -373,11 +380,12 @@ def main():
         dataset_name=args.dataset, interaction=args.interaction
     )
 
+    print_interaction_mode_instruction(args)
     evaluator:Evaluator = Evaluator(
         args=args,
         comp_config=comp_config,
         tokenizer=tokenizer,
-        splitter_token_id=comp_config.split_token_id if args.method_type not in (CLASS_ANCHOR + CLASS_TOKEN) else comp_config.output_comp_token_id_list[-1],
+        splitter_token_id=comp_config.split_token_id if args.method not in (CLASS_ANCHOR + CLASS_TOKEN) else comp_config.output_comp_token_id_list[-1],
         file_name_list=file_list,
         reference=reference,
     )

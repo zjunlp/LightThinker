@@ -10,7 +10,7 @@ from tqdm import tqdm
 from copy import deepcopy
 from transformers import AutoTokenizer, DynamicCache, GenerationConfig
 
-from utils import *
+from LightThinker.utils import *
 from config import Config
 from tokenizer import Tokenizer
 from model_llama import LlamaForCausalLM
@@ -1531,7 +1531,10 @@ def eval_dataset(
     
     output_dir = os.path.dirname(output_file)
     if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
+        try:
+            os.makedirs(output_dir)
+        except:
+            pass
 
     # ===== CONTINUE =====
     data_copy_list = list()

@@ -5,10 +5,10 @@ import time
 import regex as re
 
 DATASET_PATH = dict(
-    mmlu="../data/eval/mmlu.json",
-    bbh="../data/eval/bbh.json",
-    gpqa="../data/eval/gpqa.json",
-    gsm8k="../data/eval/gsm8k.json",
+    mmlu="data/eval/mmlu.json",
+    bbh="data/eval/bbh.json",
+    gpqa="data/eval/gpqa.json",
+    gsm8k="data/eval/gsm8k.json",
 )
 
 def _print(messages):

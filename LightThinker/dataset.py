@@ -6,10 +6,10 @@ from copy import deepcopy
 
 from config import Config
 from tokenizer import Tokenizer
-from utils import create_attention_mask
-from utils import visualize_labels, visualize_attention_mask
-from utils import _print, read_jsonl, IGNORE_LABEL_ID, padding_item
-from utils import create_attention_for_aug_data, create_attention_for_recover_data
+from LightThinker.utils import create_attention_mask
+from LightThinker.utils import visualize_labels, visualize_attention_mask
+from LightThinker.utils import _print, read_jsonl, IGNORE_LABEL_ID, padding_item
+from LightThinker.utils import create_attention_for_aug_data, create_attention_for_recover_data
 
 class MyDataset(torch.utils.data.Dataset):
     def __init__(
@@ -910,6 +910,8 @@ if __name__ == '__main__':
     config_path = "YOUR_CONFIG.json"
     tokenizer_path = "YOUR_TOKENIZER_PATH"
     dataset_path = "YOUR_DATASET.jsonl"
+
+    
     # bos_token="<|begin_of_text|>"
     # eos_token="<|eot_id|>"
     bos_token="<|im_start|>"

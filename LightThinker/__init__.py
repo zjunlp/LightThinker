@@ -1,2 +1,2 @@
-from config import Config
-from tokenizer import Tokenizer
+from .config import Config
+from .tokenizer import Tokenizer

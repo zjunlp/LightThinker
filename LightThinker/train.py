@@ -9,7 +9,7 @@ from model_llama import LlamaForCausalLM
 from transformers import Trainer, TrainingArguments
 
 from config import Config
-from utils import _print, IGNORE_LABEL_ID, str2bool
+from LightThinker.utils import _print, IGNORE_LABEL_ID, str2bool
 from tokenizer import Tokenizer
 from dataset import MyDataset, MyDataCollator
 

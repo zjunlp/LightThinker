@@ -1,7 +1,7 @@
 
 
 from typing import *
-from utils import read_json
+from LightThinker.utils import read_json
 
 class Config:
 
