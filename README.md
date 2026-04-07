@@ -1,13 +1,11 @@
-<div align="center" style="width: 100%;">
+<!-- <div align="center" style="width: 100%;">
   <img src="assets/gif.gif" alt="Case GIF" style="width: 100%; max-width: 100%; height: auto;">
-</div>
-
-
+</div> -->
 
 <div align="center">
 <h1 align="center"> 👉 LightThinker 👈 </h1>
 <b>LightThinker: Thinking Step-by-Step Compression</b>
-
+  
 [![Awesome](https://awesome.re/badge.svg)](https://github.com/zjunlp/LightThinker) 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 ![](https://img.shields.io/github/last-commit/zjunlp/LightThinker?color=green) 
@@ -20,20 +18,48 @@
 
 </div>
 
+<div align="center" style="width: 100%;">
+  <img src="assets/intro.jpg" alt="Introduction Image" style="width: 100%; max-width: 100%; height: auto;">
+</div>
+
+
+
+
 ## Table of Contents
 
+- 🔔[News](#news)
 - 👀[Overview](#overview)
-- 🔧[Installation](#installation)
-- 🏃[Quick Start](#quick-start)
+- 💡[LightThinker](#lightthinker)
+  - 🔧[Installation](#installation)
+  - 🏃[Quick Start](#quick-start)
+- 🚀[LightThinker++](#lightthinker-1)
 - 🎁[Acknowledgement](#acknowledgement)
 - 🚩[Citation](#citation)
 
+## 🔔News
+
+- **[2026-03]** We release a new paper: "[LightThinker++: From Reasoning Compression to
+  Memory Management](http://arxiv.org/abs/2604.03679)
+
+- **[2025-08]** Our paper "[LightThinker: Thinking Step-by-Step Compression](https://arxiv.org/abs/2502.15589)" has been accepted to EMNLP 2025.
+
+- **[2025-02]** We release a new paper: "[LightThinker: Thinking Step-by-Step Compression](https://arxiv.org/abs/2502.15589)".
+
+  
+
 ## 👀Overview
 
-LLMs have shown remarkable performance in complex reasoning tasks, but their efficiency is hindered by the substantial memory and computational costs associated with generating lengthy tokens. In this paper, we propose LightThinker, a novel method that enables LLMs to dynamically compress intermediate thoughts during reasoning. Inspired by human cognitive processes, LightThinker compresses verbose thought steps into compact representations and discards the original reasoning chains, thereby significantly reducing the number of tokens stored in the context window. This is achieved by training the model on when and how to perform compression through data construction, mapping hidden states to condensed gist tokens, and creating specialized attention masks.
+LLMs have shown remarkable performance in complex reasoning tasks, but their efficiency is hindered by the substantial memory and computational costs associated with generating lengthy thought traces.
 
+We propose the **LightThinker family** to address this challenge, inspired by human cognitive processes of compressing and selectively recalling information:
 
-## 🔧Installation
+- **LightThinker** enables LLMs to dynamically compress intermediate thoughts into compact representations during reasoning, discarding the original reasoning chains to significantly reduce the number of tokens stored in the context window. This is achieved by training the model on when and how to perform compression through data construction, mapping hidden states to condensed gist tokens, and creating specialized attention masks.
+
+- **LightThinker++** evolves this further by introducing Explicit Adaptive Memory Management. Rather than relying solely on implicit compression, the model actively manages its own context via explicit memory primitives. This enables reversible, adaptive context control for both complex reasoning and long-horizon agentic tasks.
+
+Together, the LightThinker family enables LLMs to reason deeper, longer, and more efficiently.
+
+### 🔧Installation
 
 ```bash
 git clone https://github.com/zjunlp/LightThinker
@@ -45,11 +71,11 @@ cd data && unzip data.zip && cd ..
 ```
 
 
-## 🏃Quick Start
+### 🏃Quick Start
 
 > First, we train the model to learn how to compress (step 1). Then, we perform inference on the test set to obtain output results (step 2). Finally, we evaluate the output results (step 3).
 
-### Step 1. Training
+#### Step 1. Training
 
 To execute the training, run the following command:
 
@@ -59,7 +85,7 @@ bash train.sh
 
 Currently, the script's parameters are set to run on a machine with 4 A800 GPUs. If you encounter OOM (Out Of Memory) issues, please reduce the `micro_batch_size` and `max_length`. For other parameters in the script, please refer to the [documentation](./ARGS.md).
 
-### Step 2. Inference
+#### Step 2. Inference
 
 <details> 
 <summary><b>Inference with a downloaded model</b></summary>
@@ -76,7 +102,7 @@ bash inference.sh
 Here, you need to modify the script file's `model_tag`, `model_short_tag`, `ckpt`, `output_tag`, and `split_size`. For details regarding the script's parameters, please refer to the [documentation](./ARGS.md).
 
 
-### Step 3. Evaluation
+#### Step 3. Evaluation
 
 > [!NOTE]
 > If this is your **first time** conducting an evaluation, please execute the following code first:
@@ -153,7 +179,8 @@ python evaluation/eval_file.py \
 When string matching fails, the output will be displayed in the format "Model Answer" <=> "Standard Answer". At this point, you can input "y" or "n" to evaluate this case. If you believe the model's answer extraction is incorrect, you can input "e" to print the model's complete output, and then input "y" or "n" to evaluate this case.
 </details>
 
-
+## LightThinker++
+> To be released soon.
 
 ## 🎁Acknowledgement
 
