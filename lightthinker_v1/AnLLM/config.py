@@ -1,7 +1,7 @@
 
 
 from typing import *
-from LightThinker.utils import read_json
+from utils import read_json
 
 class Config:
 
@@ -116,7 +116,6 @@ class Config:
             self.double_new_line_token_desp,
         ]
 
-        # 为qwen2.5
         if self.template_cfg['model'] == 'qwen':
             self.bos_token = "<|im_start|>"
             self.bos_token_desp = "<|im_start|>"
@@ -212,4 +211,3 @@ class Config:
         assert self.output_comp_token_id_list is not None
         return self.output_comp_token_id_list
     
-

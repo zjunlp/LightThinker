@@ -1,0 +1,23 @@
+# Active credentials — never commit
+.env
+.env.*
+!.env.*.example
+
+# Runtime outputs
+results-synthetic/
+results-inference/
+results/
+curated/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# macOS
+.DS_Store
+
+# Logs
+*.log

@@ -1,1 +1,29 @@
 ./model/*
+
+# Credentials and local environment
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Python/runtime artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+
+# OS/editor artifacts
+.DS_Store
+
+# Runtime outputs
+results/
+results-*/
+**/results/
+**/results-*/
+*.log
+
+# Large generated/release data: publish externally or via Git LFS if needed.
+data/*.zip
+general_reasoning/data/train/
+general_reasoning/data/ref/
+general_reasoning/synthetic/curated_data/

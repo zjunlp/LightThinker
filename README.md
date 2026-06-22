@@ -1,198 +1,159 @@
-<!-- <div align="center" style="width: 100%;">
-  <img src="assets/gif.gif" alt="Case GIF" style="width: 100%; max-width: 100%; height: auto;">
-</div> -->
-
 <div align="center">
 <h1 align="center"> 👉 LightThinker 👈 </h1>
-<b>LightThinker: Thinking Step-by-Step Compression</b>
-  
-[![Awesome](https://awesome.re/badge.svg)](https://github.com/zjunlp/LightThinker) 
+<b>LightThinker Family: From Thinking Compression to Adaptive Memory Management</b>
+
+[![Awesome](https://awesome.re/badge.svg)](https://github.com/zjunlp/LightThinker)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-![](https://img.shields.io/github/last-commit/zjunlp/LightThinker?color=green) 
+![](https://img.shields.io/github/last-commit/zjunlp/LightThinker?color=green)
 
 <p align="center">
-  <a href="https://arxiv.org/abs/2502.15589">📄arXiv</a> •
-  <a href="https://x.com/zxlzr/status/1894729164609208338">𝕏 Blog</a> •
-  <a href="https://huggingface.co/collections/zjunlp/lightthinker-67f9faaaa518f2e00b17386b">🤗 Huggingface</a>
+  <a href="https://arxiv.org/abs/2502.15589">📄 LightThinker arXiv</a> •
+  <a href="http://arxiv.org/abs/2604.03679">📄 LightThinker++ arXiv</a> •
+  <a href="https://huggingface.co/collections/zjunlp/lightthinker-67f9faaaa518f2e00b17386b">🤗 Hugging Face</a>
 </p>
-
 </div>
 
 <div align="center" style="width: 100%;">
-  <img src="assets/intro.jpg" alt="Introduction Image" style="width: 100%; max-width: 100%; height: auto;">
+  <img src="assets/intro.jpg" alt="LightThinker overview" style="width: 100%; max-width: 100%; height: auto;">
 </div>
-
-
-
 
 ## Table of Contents
 
-- 🔔[News](#news)
-- 👀[Overview](#overview)
-- 💡[LightThinker](#lightthinker)
-  - 🔧[Installation](#installation)
-  - 🏃[Quick Start](#quick-start)
-- 🚀[LightThinker++](#lightthinker-1)
-- 🎁[Acknowledgement](#acknowledgement)
-- 🚩[Citation](#citation)
+- 🔔 [News](#news)
+- 👀 [Overview](#overview)
+- 🤗 [Resources](#resources)
+- 📁 [Repository Structure](#repository-structure)
+- 🚀 [LightThinker++ — General Reasoning](#lightthinker--general-reasoning)
+- 🌐 [LightThinker++ — Agentic Reasoning](#lightthinker--agentic-reasoning)
+- 💡 [LightThinker](#lightthinker)
+- 🎁 [Acknowledgement](#acknowledgement)
+- 🚩 [Citation](#citation)
 
-## 🔔News
+## 🔔 News
 
-- **[2026-03]** We release a new paper: "[LightThinker++: From Reasoning Compression to
-  Memory Management](http://arxiv.org/abs/2604.03679)
-
+- **[2026-03]** We release a new paper: "[LightThinker++: From Reasoning Compression to Memory Management](http://arxiv.org/abs/2604.03679)".
 - **[2025-08]** Our paper "[LightThinker: Thinking Step-by-Step Compression](https://arxiv.org/abs/2502.15589)" has been accepted to EMNLP 2025.
+- **[2025-02]** We release "[LightThinker: Thinking Step-by-Step Compression](https://arxiv.org/abs/2502.15589)".
 
-- **[2025-02]** We release a new paper: "[LightThinker: Thinking Step-by-Step Compression](https://arxiv.org/abs/2502.15589)".
+## 👀 Overview
 
-  
+LLMs can solve increasingly complex reasoning tasks, but long thought traces make inference expensive because the model must retain and attend to large contexts. The **LightThinker family** addresses this by compressing or actively managing intermediate reasoning states.
 
-## 👀Overview
+- **LightThinker** compresses intermediate thoughts into compact gist-token representations. The implementation and AnLLM baseline are preserved under [`lightthinker_v1/`](./lightthinker_v1/).
+- **LightThinker++** introduces explicit adaptive memory management. The model can use memory primitives such as `commit`, `expand`, `fold`, and `final_answer` to control its scratchpad while reasoning.
 
-LLMs have shown remarkable performance in complex reasoning tasks, but their efficiency is hindered by the substantial memory and computational costs associated with generating lengthy thought traces.
+This top-level README is a quick-start guide. Detailed model links, data links, environment variables, script parameters, and evaluation options live in the module README files.
 
-We propose the **LightThinker family** to address this challenge, inspired by human cognitive processes of compressing and selectively recalling information:
+## 🤗 Resources
 
-- **LightThinker** enables LLMs to dynamically compress intermediate thoughts into compact representations during reasoning, discarding the original reasoning chains to significantly reduce the number of tokens stored in the context window. This is achieved by training the model on when and how to perform compression through data construction, mapping hidden states to condensed gist tokens, and creating specialized attention masks.
+- **LightThinker++ General Reasoning:** models, SFT data, and full configuration are in [`general_reasoning/README.md`](./general_reasoning/README.md).
+- **LightThinker++ Agentic Reasoning:** models, SFT data, and full configuration are in [`agentic_reasoning/README.md`](./agentic_reasoning/README.md).
+- **LightThinker:** models, data archive, and full configuration are in [`lightthinker_v1/README.md`](./lightthinker_v1/README.md).
 
-- **LightThinker++** evolves this further by introducing Explicit Adaptive Memory Management. Rather than relying solely on implicit compression, the model actively manages its own context via explicit memory primitives. This enables reversible, adaptive context control for both complex reasoning and long-horizon agentic tasks.
+## 📁 Repository Structure
 
-Together, the LightThinker family enables LLMs to reason deeper, longer, and more efficiently.
+```
+LightThinker/
+├── general_reasoning/       # LightThinker++ for math and general reasoning tasks
+├── agentic_reasoning/       # LightThinker++ for agentic deep-research tasks
+├── lightthinker_v1/         # LightThinker and AnLLM baseline code
+├── assets/                  # README assets
+└── README.md
+```
 
-### 🔧Installation
+| Method | Folder | Full guide |
+|--------|--------|------------|
+| LightThinker++ for general reasoning | [`general_reasoning/`](./general_reasoning/) | [`general_reasoning/README.md`](./general_reasoning/README.md) |
+| LightThinker++ for agentic reasoning | [`agentic_reasoning/`](./agentic_reasoning/) | [`agentic_reasoning/README.md`](./agentic_reasoning/README.md) |
+| LightThinker | [`lightthinker_v1/`](./lightthinker_v1/) | [`lightthinker_v1/README.md`](./lightthinker_v1/README.md) |
+
+## 🚀 LightThinker++ — General Reasoning
+
+Quick start for math and general reasoning tasks such as GSM8K, MMLU, GPQA, and BBH:
 
 ```bash
-git clone https://github.com/zjunlp/LightThinker
-cd LightThinker
+cd general_reasoning
+conda env create -f environment.yml
+conda activate lt_plus_general_reasoning
+cp .env.example ../.env
+
+# Generate synthetic trajectories after setting an input JSONL dataset.
+DATASET_PATH=/path/to/input.jsonl bash scripts/synthetic.sh
+
+# Run inference with a trained or downloaded model.
+MODEL=/path/to/model bash scripts/infer.sh 0 gsm8k
+```
+
+See [`general_reasoning/README.md`](./general_reasoning/README.md) for configuration, datasets, and full arguments.
+
+## 🌐 LightThinker++ — Agentic Reasoning
+
+Quick start for long-horizon deep-research and multi-hop QA tasks:
+
+```bash
+cd agentic_reasoning
+bash setup.sh
+cp .env.synthetic.example .env
+
+# Run synthetic data generation with the included sample dataset.
+bash scripts/synthetic.sh
+```
+
+For inference, use `cp .env.infer.example .env`, configure your model endpoint, and run `bash scripts/inference.sh`.
+
+See [`agentic_reasoning/README.md`](./agentic_reasoning/README.md) for configuration, datasets, and full arguments.
+
+## 💡 LightThinker
+
+Quick start for the LightThinker implementation:
+
+```bash
+cd lightthinker_v1
 conda create -n lightthinker python=3.9 -y
 conda activate lightthinker
 pip install -r requirements.txt
-cd data && unzip data.zip && cd ..
-```
 
-
-### 🏃Quick Start
-
-> First, we train the model to learn how to compress (step 1). Then, we perform inference on the test set to obtain output results (step 2). Finally, we evaluate the output results (step 3).
-
-#### Step 1. Training
-
-To execute the training, run the following command:
-
-```bash
+# Train and run inference.
 bash train.sh
-```
-
-Currently, the script's parameters are set to run on a machine with 4 A800 GPUs. If you encounter OOM (Out Of Memory) issues, please reduce the `micro_batch_size` and `max_length`. For other parameters in the script, please refer to the [documentation](./ARGS.md).
-
-#### Step 2. Inference
-
-<details> 
-<summary><b>Inference with a downloaded model</b></summary>
-
-If you are downloading a trained model from Huggingface, please set the `model_path` parameter in `inference.sh` to the absolute path of the model. The values of other parameters `ckpt` and `model_tag` will be ignored.
-</details>
-
-To execute the inference, run the following command:
-
-```bash
 bash inference.sh
 ```
 
-Here, you need to modify the script file's `model_tag`, `model_short_tag`, `ckpt`, `output_tag`, and `split_size`. For details regarding the script's parameters, please refer to the [documentation](./ARGS.md).
+See [`lightthinker_v1/README.md`](./lightthinker_v1/README.md) for configuration, datasets, and full arguments.
 
+## 🎁 Acknowledgement
 
-#### Step 3. Evaluation
+We use the [`ms-swift`](https://github.com/modelscope/ms-swift) framework for full-parameter SFT of the LightThinker++ models. The general reasoning evaluation also builds on ideas from [TokenSkip](https://github.com/carriex/TokenSkip). The LightThinker evaluation includes baseline code inspired by H2O from [Meta-llama](https://github.com/meta-llama/llama-cookbook) and SepLLM from [HKUDS](https://github.com/HKUDS/SepLLM).
 
-> [!NOTE]
-> If this is your **first time** conducting an evaluation, please execute the following code first:
-> ```bash
-> python evaluation/init.py
-> ```
+## 🚩 Citation
 
-To execute the evaluation, run the following command:
-
-```bash
-method=""
-tokenizer_path=""
-comp_config=""
-model_type=""
-dataset=""
-bos_token=""
-eos_token=""
-cache_size=1024
-file1=""
-file2=""
-file3=""
-file4=""
-python evaluation/eval_file.py \
-  --method $method \
-  --tokenizer_path $tokenizer_path \
-  --comp_config $comp_config \
-  --model_type $model_type \
-  --dataset $dataset \
-  --files $file1 $file2 $file3 $file4 \
-  --cache_size $cache_size \
-  --bos_token $bos_token \
-  --eos_token $eos_token \
-  --interaction 
-```
-
-Please note that if you set `split_size>1` in the second step, the number of file i here should match the value of `split_size`. It should be noted that manual evaluation was conducted during the assessment. Use the `--interaction` flag to enable manual evaluation. The `cache_size` parameter is used for `H2O` and `SepLLM`, but not for `LightThinker` or `AnLLM`.
-
-<details> 
-<summary><b>Evaluation Script Example</b></summary>
-
-```bash
-# The optional values for the method argument are 'anchor-token', 'normal', 'kvcache', and 'anchor-thought'.
-method="anchor-thought"
-tokenizer_path="Qwen/Qwen2.5-7B-Instruct"
-comp_config="configs/LightThinker/qwen/v1.json"
-model_type="qwen"
-dataset="gpqa"
-bos_token="<|im_start|>"
-eos_token="<|im_end|>"
-cache_size=1024
-folder=""
-ckpt=1045
-file1="inference_results/${folder}/${dataset}/${ckpt}/1-4qwen_7b.jsonl"
-file2="inference_results/${folder}/${dataset}/${ckpt}/2-4qwen_7b.jsonl"
-file3="inference_results/${folder}/${dataset}/${ckpt}/3-4qwen_7b.jsonl"
-file4="inference_results/${folder}/${dataset}/${ckpt}/4-4qwen_7b.jsonl"
-python evaluation/eval_file.py \
-  --method $method \
-  --tokenizer_path $tokenizer_path \
-  --comp_config $comp_config \
-  --model_type $model_type \
-  --dataset $dataset \
-  --files $file1 $file2 $file3 $file4 \
-  --cache_size $cache_size \
-  --bos_token $bos_token \
-  --eos_token $eos_token \
-  --interaction 
-```
-</details>
-
-<details> 
-<summary><b>Manual Evaluation Instructions</b></summary>
-
-When string matching fails, the output will be displayed in the format "Model Answer" <=> "Standard Answer". At this point, you can input "y" or "n" to evaluate this case. If you believe the model's answer extraction is incorrect, you can input "e" to print the model's complete output, and then input "y" or "n" to evaluate this case.
-</details>
-
-## LightThinker++
-> To be released soon.
-
-## 🎁Acknowledgement
-
-Our training dataset is derived from [Bespoke-Stratos-17k](https://huggingface.co/datasets/bespokelabs/Bespoke-Stratos-17k). We utilized the baseline code for H2O from the [Meta-llama](https://github.com/meta-llama/llama-cookbook)'s repository, the baseline code for SepLLM from the [HKUDS](https://github.com/HKUDS/SepLLM)'s repository. We extend our gratitude to the contributors for their outstanding work!
-
-
-## 🚩Citation
-
-If this work is helpful, please kindly cite as:
+If this work is helpful, please kindly cite:
 
 ```bibtex
-@article{DBLP:journals/corr/abs-2502-15589,
+@article{lightthinker++,
+  author       = {Yuqi Zhu and
+                  Jintian Zhang and
+                  Zhenjie Wan and
+                  Yujie Luo and
+                  Shuofei Qiao and
+                  Zhengke Gui and
+                  Da Zheng and
+                  Lei Liang and
+                  Huajun Chen and
+                  Ningyu Zhang},
+  title        = {LightThinker++: From Reasoning Compression to Memory Management},
+  journal      = {CoRR},
+  volume       = {abs/2604.03679},
+  year         = {2026},
+  url          = {https://doi.org/10.48550/arXiv.2604.03679},
+  doi          = {10.48550/ARXIV.2604.03679},
+  eprinttype   = {arXiv},
+  eprint       = {2604.03679},
+  timestamp    = {Fri, 08 May 2026 07:40:46 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2604-03679.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{lightthinker,
   author       = {Jintian Zhang and
                   Yuqi Zhu and
                   Mengshu Sun and
@@ -202,21 +163,20 @@ If this work is helpful, please kindly cite as:
                   Da Zheng and
                   Huajun Chen and
                   Ningyu Zhang},
+  editor       = {Christos Christodoulopoulos and
+                  Tanmoy Chakraborty and
+                  Carolyn Rose and
+                  Violet Peng},
   title        = {LightThinker: Thinking Step-by-Step Compression},
-  journal      = {CoRR},
-  volume       = {abs/2502.15589},
+  booktitle    = {Proceedings of the 2025 Conference on Empirical Methods in Natural
+                  Language Processing, {EMNLP} 2025, Suzhou, China, November 4-9, 2025},
+  pages        = {13307--13328},
+  publisher    = {Association for Computational Linguistics},
   year         = {2025},
-  url          = {https://doi.org/10.48550/arXiv.2502.15589},
-  doi          = {10.48550/ARXIV.2502.15589},
-  eprinttype    = {arXiv},
-  eprint       = {2502.15589},
-  timestamp    = {Thu, 20 Mar 2025 13:28:42 +0100},
-  biburl       = {https://dblp.org/rec/journals/corr/abs-2502-15589.bib},
+  url          = {https://doi.org/10.18653/v1/2025.emnlp-main.673},
+  doi          = {10.18653/V1/2025.EMNLP-MAIN.673},
+  timestamp    = {Mon, 02 Feb 2026 09:39:37 +0100},
+  biburl       = {https://dblp.org/rec/conf/emnlp/ZhangZSLQDZCZ25.bib},
   bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 ```
-
-
-
-
-

@@ -410,7 +410,6 @@ class AttentionUtils:
                     self.last_idx - new_length: self.last_idx, 
                     text_start+remove_size:self.last_idx
                 ]
-            # 让
             self.delta_attn[0:new_length, self.last_idx - remove_size-new_length:self.last_idx - remove_size] = \
                 self.base_attn[0:new_length, 0:new_length]
             return self.delta_attn[0:new_length, 0:self.last_idx-remove_size].unsqueeze(dim=0).unsqueeze(dim=0)
